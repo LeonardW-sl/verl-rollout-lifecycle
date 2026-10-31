@@ -1,0 +1,107 @@
+hydra:
+  searchpath:
+    - file://verl/trainer/config
+
+defaults:
+  - ppo_trainer
+  - _self_
+
+# config for the rollout (only for resource isolation)
+rollout:
+  # Number of nodes used in the rollout
+  nnodes: 1
+  # Number of GPUs per node
+  n_gpus_per_node: 8
+
+# To adapt to the current logic of AgentLoopManager
+actor_rollout_ref:
+  dynamic_resize:
+    enable: ${trainer.dynamic_resize.enable}
+    # Bridged from the trainer node because the worker only ever sees
+    # actor_rollout_ref. Without this line the flag reaches the trainer and
+    # silently no-ops in the worker.
+    skip_rollout_fsdp_shell: ${trainer.dynamic_resize.skip_rollout_fsdp_shell}
+    trace:
+      enable: ${trainer.dynamic_resize.trace.enable}
+      path: ${trainer.dynamic_resize.trace.path}
+      run_name: ${trainer.dynamic_resize.trace.run_name}
+      flush: ${trainer.dynamic_resize.trace.flush}
+  rollout:
+    # Must be turned off! Otherwise, Parameter synchronization cannot be performed.
+    free_cache_engine: False
+    # Must be enabled! Otherwise, log_probs cannot be calculated.
+    calculate_log_probs: True
+
+# Only then will the use of log probs be correct.
+# And it can be used in conjunction with other rollout_correction algorithms.
+algorithm:
+  rollout_correction:
+    bypass_mode: True
+
+trainer:
+  # Dynamic resize schedule for actor/rollout group switching.
+  dynamic_resize:
+    enable: true
+    mode: schedule
+    # Skip the FP32 FSDP shell on pure-rollout processes. The shell is 4*P/W and
+    # the prebuilt elastic group shards over W=TP, so it can occupy a large share
+    # of each card with no active consumer. OFF by default so this stays
+    # reversible and the default reproduces prior behaviour; see verl/experimental/
+    # one_step_off_policy/shell_skip.py for the no-consumer argument.
+    skip_rollout_fsdp_shell: false
+    trace:
+      enable: false
+      path: ""
+      run_name: ""
+      flush: false
+    phased_init:
+      enable: true
+    async_comm_prewarm:
+      enable: true
+    handoff:
+      enable: true
+      backend: disk_fallback
+      chunk_mb: 256
+      stage_optimizer: true
+      optimizer_restore_policy: deferred
+      progressive_swap: true
+      async_optimizer_preload: true
+      optimizer_full_state_restore: true
+      preload_queue_depth: 2
+      host_preload_threshold: 0.85
+      device_preload_threshold: 0.9
+      cleanup_after_load: true
+      preclear_rollout_kv_cache: true
+    budget_protection:
+      enable: false
+      memory_budget_ratio: 0.85
+    communicator_cache:
+      enable: false
+      reserve_schedule_topologies: true
+    hysteresis:
+      enable: false
+      window_size: 2
+      up_threshold: 1.15
+      down_threshold: 0.9
+      min_dwell_steps: 1
+      cooldown_steps: 0
+      consecutive_signal_steps: 1
+      min_observation_count: 1
+    shared_pool:
+      enable: true
+      nnodes: 1
+      n_gpus_per_node: 8
+    schedule:
+      stage0:
+        step: -1
+        actor_pool:
+          mode: split
+          size: [4, 4]
+          index: 0
+          from_pool: shared_pool
+        rollout_pool:
+          mode: split
+          size: [4, 4]
+          index: 1
+          from_pool: shared_pool
+        release_old: false
