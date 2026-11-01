@@ -2,7 +2,7 @@
 
 This records checks executed for the sanitized August source snapshot. No server, Docker container, GPU workload, training, or multi-node experiment was launched for this delivery. No benchmark results or private experiment artifacts are published here.
 
-## Behavior checks actually run
+## Original publication behavior checks (2026-10-31)
 
 Python 3.12.3, pytest 9.1.1, from the repository root:
 
@@ -63,3 +63,54 @@ The original run environment has no immutable dependency lock. Package metadata 
 ## Upstream context
 
 Generic upstream examples retain their own algorithm citations, sample configurations and upstream documentation. They are baseline context, not experimental results of the August contribution. No private measured-results report, teammate identities, real server configuration or project publication-status statement is included in the public contribution documentation.
+
+## Public review and privacy update (2026-11-01)
+
+The public packet now includes [REVIEW.md](docs/REVIEW.md) and
+[WORK_HISTORY.md](docs/WORK_HISTORY.md). The root README distinguishes the
+June–August development dates from the October publication date. The chronology
+was checked against the 77 original contribution commits' metadata; no raw
+private ledger, author details or commit messages were copied into it.
+
+Checks exercised for this update:
+
+- The documented three-file reviewer command completed: **87 passed**, exit
+  code 0. No full training runtime was launched.
+- The five main Markdown documents had **89 local links** checked, including
+  linked heading anchors; all resolved. Their **three Bash blocks** passed
+  syntax checks.
+- The publication work set was enumerated: **928 files**, including the two
+  new documents. A detailed candidate review covered credentials, personal
+  identities and paths, access endpoints, private records, notebook output and
+  metadata, and upstream versus private attribution.
+- Before this update's commit, the published repository had **one branch, no
+  tags and one reachable commit**. Its **895 unique file blobs** were decoded
+  and screened; all **1,104 local Git objects** were enumerated, with **zero
+  unreachable objects**. Commit identities/messages and tracked filenames were
+  also inspected. The author email was a public-account privacy address.
+
+Three types of personal-looking remnants from retained upstream examples were
+removed from the current source: optional Git identity comments in two Docker
+files; personal default index/corpus locations in the retrieval example; and
+two editor metadata fields in a notebook. The notebook's **37 cells** and their
+saved contents were unchanged. Upstream licenses, source attribution, public
+maintainer/contact metadata, and container-created build directories were
+retained; configuration syntax was not treated as an email address.
+
+The retrieval example now requires explicit `--index_path` and `--corpus_path`.
+Its actual argument-parser statements were exercised in isolation from the
+heavy service imports: no locations or either location alone exit with code 2;
+both supplied locations are accepted unchanged. Before the cleanup, the same
+checks accepted missing locations and silently selected personal defaults.
+No full retrieval service or model/index loading was exercised. There are no
+repository launch callers relying on the removed defaults.
+
+**History limitation:** the original publication commit already contained those
+upstream example remnants. This update removes them from the current version,
+not from earlier public copies or Git history. It is not a history rewrite or a
+claim that previously published material can be recalled. The complete private
+review repository and its internal attachments remain private.
+
+The inspections found no confirmed user/team access data or live credentials
+in the publication set. Pattern screening and human candidate review are not
+a proof that every possible secret format or external link is safe.

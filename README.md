@@ -1,4 +1,8 @@
-# verl rollout-lifecycle runtime — August 2026 snapshot
+# verl rollout-lifecycle runtime — June–August 2026 work
+
+**Work dates: 2026-06-22–2026-08-22. Final source snapshot: August 2026.
+Public repository created: 2026-10-31.** The publication date is not the start
+of the work. See the [checked work timeline](docs/WORK_HISTORY.md).
 
 This repository is a preserved snapshot of an experimental
 [verl](https://github.com/volcengine/verl) research runtime. It lets a reader
@@ -147,6 +151,10 @@ why sleeping groups must leave the rollout worker group, is in
 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md#1-deployment-geometry-and-the-one-topology-truth).
 
 ## Where to start reading
+
+For a structured code review, start with the [public review guide](docs/REVIEW.md).
+It covers seven review units, ordering checks and manual-integration decisions,
+without publishing the original private review attachments.
 
 1. This README for scope and flags.
 2. [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the invariants, the resize
