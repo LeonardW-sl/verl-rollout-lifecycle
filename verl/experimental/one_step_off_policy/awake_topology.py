@@ -81,7 +81,7 @@ def diff_engines(old_bundles, new_bundles, tp):
 class ZoneLayout:
     """Static three-zone deployment geometry.
 
-    Cards split into A (permanent actor) | R (permanent rollout) | E (elastic).
+    Cards split into A (permanent actor) | E (elastic) | R (permanent rollout).
     Only the elastic zone changes hands across a resize, so only it is pooled;
     the permanent rollout zone is always awake and never enters the pool.
     """

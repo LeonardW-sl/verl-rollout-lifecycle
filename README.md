@@ -4,6 +4,8 @@
 Public repository created: 2026-10-31.** The publication date is not the start
 of the work. See the [checked work timeline](docs/WORK_HISTORY.md).
 
+[中文阅读与功能提取指南](docs/EXTRACTION.zh-CN.md) | [English reading and extraction guide](docs/EXTRACTION.md)
+
 This repository is a preserved snapshot of an experimental
 [verl](https://github.com/volcengine/verl) research runtime. It lets a reader
 inspect the rollout-lifecycle logic, its deployment model, and the tests that
@@ -155,6 +157,11 @@ why sleeping groups must leave the rollout worker group, is in
 For a structured code review, start with the [public review guide](docs/REVIEW.md).
 It covers seven review units, ordering checks and manual-integration decisions,
 without publishing the original private review attachments.
+
+For extracting a feature into another codebase, use the bilingual
+[reading and extraction guide](docs/EXTRACTION.md)
+([中文版](docs/EXTRACTION.zh-CN.md)). It distinguishes portable modules from
+trainer-specific integration and walks through one historical contribution.
 
 1. This README for scope and flags.
 2. [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the invariants, the resize

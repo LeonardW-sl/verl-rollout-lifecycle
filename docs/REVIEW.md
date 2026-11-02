@@ -11,6 +11,10 @@ This is the public, code-only review packet for the historical rollout-lifecycle
 
 All source links resolve within this public snapshot. No private repository access is required for these steps.
 
+For a feature-by-feature extraction plan and one historical-commit example,
+see the [English extraction guide](EXTRACTION.md) or
+[中文阅读与功能提取指南](EXTRACTION.zh-CN.md).
+
 ## Seven review units
 
 | Unit | Source entry | Consumer-visible invariant to inspect |

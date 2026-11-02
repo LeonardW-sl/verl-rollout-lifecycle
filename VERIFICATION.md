@@ -114,3 +114,35 @@ review repository and its internal attachments remain private.
 The inspections found no confirmed user/team access data or live credentials
 in the publication set. Pattern screening and human candidate review are not
 a proof that every possible secret format or external link is safe.
+
+## Bilingual extraction guide and comment correction (2026-11-02)
+
+The [Chinese extraction guide](docs/EXTRACTION.zh-CN.md) and
+[English counterpart](docs/EXTRACTION.md) now identify feature entry points,
+portable-versus-integrated boundaries, one real caller, and a synthetic runnable
+example. Original commit `4b39d5861` was checked against the preserved source
+history: date 2026-08-22, an existing trace utility modified and its error-message
+test added. This is a functional summary, not a publication of the private diff,
+commit message, identities or experiment attachments. The original development
+commit is not available for checkout or cherry-pick in this public snapshot.
+
+The `ZoneLayout` class docstring now states the implemented `A | E | R` physical
+order. Comparison of parsed source with docstrings excluded found no executable
+syntax-tree change in `awake_topology.py`.
+
+Checks exercised for this update:
+
+- The four-suite behavior command documented above completed: **92 passed**,
+  exit code 0.
+- Both guides' identical Python examples were run separately against the actual
+  trace module. Each observed the synthetic message, error type and error status,
+  and asserted that the original exception object was re-raised. Each exited 0.
+- The examples explicitly disabled optional GPU timeline instrumentation,
+  printed only three selected fields, and automatically removed their temporary
+  records. No machine metadata or raw runtime record was published.
+- Local links and source-line anchors in the seven main public documents were
+  checked; all resolved. Their five Bash blocks passed syntax checks.
+
+No training, GPU workload, target-code migration or multi-node operation was
+launched. The legacy launcher defect and earlier-public-history limitations
+described above remain unchanged; this update does not claim to fix them.
